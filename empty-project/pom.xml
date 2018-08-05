@@ -1,0 +1,90 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<description>Maven 管理其他的modules</description>
+
+	<!-- Maven 管理其他的modules -->
+	<modelVersion>4.0.0</modelVersion>
+	<name>empty</name>
+	<url>http://maven.apache.org</url>
+
+	<!--前缀.公司名.项目名 -->
+	<groupId>com.ethan</groupId>
+	<!--项目名.模块名 -->
+	<artifactId>empty</artifactId>
+	<version>${project.version}</version>
+	<!-- 父类模块必须是pom -->
+	<packaging>pom</packaging>
+
+	<!--实现高聚合 -->
+	<modules>
+		<module>empty-base</module><!-- base基类存放接口 entity之类的 -->
+		<module>empty-dao</module><!-- dao模块 -->
+		<module>empty-service</module><!-- 业务模块 -->
+		<module>empty-web</module><!-- web交互模块 -->
+        <module>empty-core</module>  <!--tbdl的核心代码,任务流程，任务控制，元数据管理 -->
+	</modules>
+
+	<!--自定义变量 -->
+	<properties>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
+
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.version>0.0.1-SNAPSHOT</project.version>  
+		<commons.lang.version>3.5</commons.lang.version>
+		<jdk.version>1.7</jdk.version>
+		<junit.version>4.12</junit.version>
+		<spring.version>4.1.1.RELEASE</spring.version>
+		<jackson.version>2.6.5</jackson.version>
+		<hessian.version>4.0.38</hessian.version>
+		<log4j.version>1.2.14</log4j.version>
+		<slf4j.log4j12.version>1.7.7</slf4j.log4j12.version>
+		<aspectj.version>1.8.3</aspectj.version>
+		<httpclient.version>4.3.6</httpclient.version>
+		<spring.data.jpa.version>1.7.0.RELEASE</spring.data.jpa.version>
+		<hibernate.version>4.3.7.Final</hibernate.version>
+		<oracle.jdbc.version>11.2.0.RELEASE</oracle.jdbc.version>
+		<mysql.jdbc.version>5.1.34</mysql.jdbc.version>
+		<dubbo.version>2.5.3</dubbo.version>
+		<freemarker.version>2.3.21</freemarker.version>
+		<shiro.version>1.2.3</shiro.version> 
+		<javax.mail.version>1.5.2</javax.mail.version>
+		<com.alibaba.version>0.2.9</com.alibaba.version>
+	</properties>
+
+	<!-- junit测试 #全局依赖-->
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
+		</dependency>
+	</dependencies>
+
+	<!--  自定义依赖 只有子模块中显示引用该jar才会引用该依赖 -->
+	<!-- <dependencyManagement>
+	</dependencyManagement> -->
+	<!-- 仓库 ##目前没有注释 -->
+	<!-- <distributionManagement>
+		snap仓库
+		<snapshotRepository>
+			<id>app-snapshots</id>
+			<name>app project snapshots</name>
+			<url>url地址</url>
+		</snapshotRepository>
+		release创库
+		<repository>
+			<id>app-release</id>
+			<name>app project release</name>
+			<url>url地址</url>
+		</repository>
+	</distributionManagement> -->
+</project>

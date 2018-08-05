@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<project
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+        xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <name>empty-core</name>
+    <!-- 集成父类模块 -->
+    <parent>
+        <groupId>com.ethan</groupId>
+        <artifactId>empty</artifactId>
+        <version>${project.version}</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>empty-core</artifactId>
+    <packaging>jar</packaging><!-- 打包方式jar -->
+
+    <dependencies>
+        <dependency>
+            <groupId>org.wltea.analyzer</groupId>
+            <artifactId>IKAnalyzer</artifactId>
+            <version>2012FF_u1</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/IKAnalyzer2012_u6.jar
+            </systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-core</artifactId>
+            <version>3.6.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/lucene-core-3.6.0.jar
+            </systemPath>
+        </dependency>
+
+        <!--spark-->
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-core_2.11</artifactId>
+            <version>2.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-sql_2.11</artifactId>
+            <version>2.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-streaming_2.11</artifactId>
+            <version>2.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-mllib_2.11</artifactId>
+            <version>2.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-hive_2.11</artifactId>
+            <version>2.1.0</version>
+        </dependency>
+
+    </dependencies>
+</project>

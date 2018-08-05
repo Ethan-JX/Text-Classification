@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--配置数据源-->
+    <bean id="propertyConfigurer" class="com.ethan.basic.util.ConfigReader">
+        <property name="properties">
+            <props>
+                <prop key="persistenceUnitName">MYSQL</prop>
+                <prop key="database">MYSQL</prop>
+                <prop key="jdbc.driver">com.mysql.jdbc.Driver</prop>
+                <prop key="jdbc.url">jdbc:mysql://127.0.0.1:3306/db_textclassify?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf8</prop>
+                <prop key="jdbc.user">root</prop>
+                <prop key="jdbc.password">root</prop>
+                <prop key="jdbc.initialSize">10</prop>
+                <prop key="jdbc.minIdle">10</prop>
+                <prop key="jdbc.maxActive">200</prop>
+                <prop key="jdbc.timeBetweenEvictionRunsMillis">3000</prop>
+                <prop key="jdbc.minEvictableIdleTimeMillis">300000</prop>
+                <prop key="jdbc.validationQuery">SELECT 1</prop>
+                <prop key="jdbc.testWhileIdle">true</prop>
+                <prop key="jdbc.testOnBorrow">false</prop>
+
+                <prop key="jdbc.testOnReturn">false</prop>
+                <prop key="jdbc.poolPreparedStatements">true</prop>
+                <prop key="jdbc.maxPoolPreparedStatementPerConnectionSize">20</prop>
+                <prop key="jdbc.maxWait">60000</prop>
+                <prop key="jdbc.filters">stat</prop>
+                <prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.format_sql">true</prop>
+                <prop key="hibernate.generateDdl">true</prop>
+
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.dialect">com.ethan.basic.util.MySQL5DialectUTF8</prop>
+                <prop key="connectio.useUnicode">true</prop>
+                <prop key="connection.characterEncoding">utf-8</prop>
+            </props>
+        </property>
+    </bean>
+</beans>

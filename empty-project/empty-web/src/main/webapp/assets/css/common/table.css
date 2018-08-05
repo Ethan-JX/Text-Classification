@@ -1,0 +1,25 @@
+.btn-contianer{
+    margin: 10px 0;
+}
+table th,td{
+    text-align: center;
+}
+.red{
+    color: red;
+}
+.green{
+    color: limegreen;
+}
+.btn-tools{
+    padding: 3px;
+    font-size: 16px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    border-radius: 5px;
+    margin: 0px 3px;
+}
+.right-text{
+    text-align: right;
+}

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/beans"
+			 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+			 xmlns:tx="http://www.springframework.org/schema/tx"
+			 xmlns:context="http://www.springframework.org/schema/context"
+			 xmlns:util="http://www.springframework.org/schema/util"
+			 xmlns:aop="http://www.springframework.org/schema/aop"
+			 xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+			 xsi:schemaLocation="
+            http://www.springframework.org/schema/beans 
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/tx 
+            http://www.springframework.org/schema/tx/spring-tx.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd
+            http://www.springframework.org/schema/aop 
+            http://www.springframework.org/schema/aop/spring-aop.xsd
+            http://www.springframework.org/schema/util 
+            http://www.springframework.org/schema/util/spring-util.xsd
+            http://www.springframework.org/schema/data/jpa
+            http://www.springframework.org/schema/data/jpa/spring-jpa.xsd"
+			 default-lazy-init="false" xmlns:beans="http://www.springframework.org/schema/beans">
+ 	<description>Spring数据源配置</description>
+	<!-- 使用annotation 自动注册bean, 并保证@Required、@Autowired的属性被注入 -->
+	<context:component-scan base-package="com.ethan.**">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+	<!--<context:component-scan base-package="com.ethan"/>-->
+	<!-- 开启AOP --> 
+	<aop:aspectj-autoproxy proxy-target-class="true"/> 
+	<!-- 配置数据源属性文件 -->
+    <!--<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
+        <!--<property name="location">-->
+            <!--<value>classpath:jdbc.properties</value>-->
+        <!--</property>-->
+    <!--</bean>  -->
+	<!--  entityManagerFactory 配置 -->
+    <bean id="entityManagerFactory"
+        class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+        p:persistenceUnitName="${persistenceUnitName}"
+        p:packagesToScan="com.ethan.entity" p:dataSource-ref="dataSource"
+        p:persistenceProvider-ref="persistenceProvider" p:jpaDialect-ref="jpaDialect"
+        p:jpaVendorAdapter-ref="jpaVendorAdapter" p:jpaPropertyMap-ref="jpaPropertyMap"/>  
+	<!-- jpaProperties jpa属性  -->
+	<util:map id="jpaPropertyMap">
+        <entry key="hibernate.hbm2ddl.auto" value="${hibernate.hbm2ddl.auto}" /><!-- create,update,none -->
+        <entry key="hibernate.format_sql" value="${hibernate.show_sql}" />
+        <entry key="hibernate.show_sql" value="${hibernate.format_sql}" />
+        <entry key="hibernate.current_session_context_class" value="org.hibernate.context.internal.ThreadLocalSessionContext"/>
+        <entry key="hibernate.dialect" value="${hibernate.dialect}" />
+ 
+        <!-- To enable Hibernate's second level cache and query cache settings 二级缓存 -->
+        <!-- <entry key="hibernate.max_fetch_depth" value="4" />
+        <entry key="hibernate.cache.use_second_level_cache" value="true" />
+        <entry key="hibernate.cache.use_query_cache" value="true" />
+        <entry key="hibernate.cache.region.factory_class" value="org.hibernate.cache.ehcache.EhCacheRegionFactory" />
+        <entry key="hibernate.cache.region.factory_class" value="org.hibernate.cache.SingletonEhCacheRegionFactory" /> -->
+    </util:map>
+	<!-- 数据源配置  -->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" 
+	 	destroy-method="close" init-method="init">
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.user}" />
+		<property name="password" value="${jdbc.password}" /> 
+		<property name="filters" value="${jdbc.filters}" /> 
+	    <property name="maxActive" value="${jdbc.maxActive}" />
+	    <property name="initialSize" value="${jdbc.initialSize}" />
+	    <property name="maxWait" value="${jdbc.maxWait}" />
+	    <property name="minIdle" value="${jdbc.minIdle}" /> 
+	    <property name="timeBetweenEvictionRunsMillis" value="${jdbc.timeBetweenEvictionRunsMillis}" />
+	    <property name="minEvictableIdleTimeMillis" value="${jdbc.minEvictableIdleTimeMillis}" /> 
+	    <property name="validationQuery" value="${jdbc.validationQuery}" />
+	    <property name="testWhileIdle" value="${jdbc.testWhileIdle}" />
+	    <property name="testOnBorrow" value="${jdbc.testOnBorrow}" />
+	    <property name="testOnReturn" value="${jdbc.testOnReturn}" /> 
+	</bean> 
+	<!-- 用于指定持久化实现厂商类 -->   
+    <bean id="persistenceProvider" class="org.hibernate.jpa.HibernatePersistenceProvider" />  
+    <!-- 用于指定一些高级特性 -->  
+    <bean id="jpaDialect" class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" /> 
+    <!-- 用于设置JPA实现厂商的特定属性 -->  
+    <bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" 
+    	p:database="${database}" p:showSql="${hibernate.show_sql}" p:generateDdl="${hibernate.generateDdl}"
+        p:databasePlatform="${hibernate.dialect}"/>   
+    <!-- 注册事务 -->  
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">  
+        <property name="entityManagerFactory" ref="entityManagerFactory" />  
+    </bean> 
+    <!-- 注入注解事务 --> 
+	<tx:annotation-driven transaction-manager="transactionManager" />  
+	<!-- spring-data-jpa  
+		 base-package 接口dao
+		 entity-manager-factory-ref 会话工厂
+		 transaction-manager-ref 事务
+		 在配置文件配置自己定义的FactoryBean
+	-->
+	<!-- <jpa:repositories base-package="com.ethan.dao" entity-manager-factory-ref="entityManagerFactory"
+	 transaction-manager-ref="transactionManager"/>  --> 
+	<jpa:repositories base-package="com.ethan.**.dao"
+        repository-impl-postfix="Impl"
+        query-lookup-strategy = "create-if-not-found"
+        entity-manager-factory-ref="entityManagerFactory"
+        transaction-manager-ref="transactionManager" >
+    </jpa:repositories>
+
+
+	<!--配置视图解析器-->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+</beans:beans>

@@ -1,0 +1,7 @@
+.text_container{
+    margin-top:50px;
+}
+
+.text_container textarea{
+    resize: none;
+}

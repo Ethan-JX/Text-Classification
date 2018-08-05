@@ -1,0 +1,23 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+ul li{
+    list-style: none;
+}
+.title{
+    background: #333;
+    color: #fff;
+    text-align: center;
+    font-size:36px;
+    line-height: 80px;
+    font-family:'minijianyingbik9d7e9ea2d17bed';
+}
+.mynav{
+    line-height:60px;
+    background: #f7f8f8;
+}
+.mynav .nav_list div{
+    line-height: 60px;
+    text-align: center;
+}

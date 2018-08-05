@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<name>empty-web</name>
+
+	<parent>
+		<groupId>com.ethan</groupId>
+		<artifactId>empty</artifactId>
+		<version>${project.version}</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	<artifactId>empty-web</artifactId>
+	<packaging>war</packaging>
+
+
+	<dependencies>
+		<!-- 依赖app-service  -->
+		<dependency>
+			<groupId>com.ethan</groupId>
+			<artifactId>empty-service</artifactId>
+			<version>${project.version}</version> 
+		</dependency>
+		<!--jstl standard-->
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.1.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>taglibs</groupId>
+			<artifactId>standard</artifactId>
+			<version>1.1.2</version>
+		</dependency>
+	</dependencies>
+	
+	<build>
+		<finalName>empty</finalName>
+	</build>
+</project>
